@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="ku" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>پیرۆزبایی جەژنی ڕەمەزان | پەیجی کۆلێژ</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        nrt: ['NRT', 'sans-serif'],
+                    },
+                    colors: {
+                        midnight: '#0B1021',
+                        emerald: {
+                            400: '#34d399',
+                            500: '#10b981',
+                            600: '#059669',
+                        },
+                        gold: {
+                            300: '#FDE047',
+                            400: '#FACC15',
+                            500: '#EAB308',
+                            600: '#CA8A04',
+                        }
+                    },
+                    animation: {
+                        'blob': 'blob 10s infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'pulse-glow': 'pulse-glow 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                    },
+                    keyframes: {
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        },
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-15px)' },
+                        },
+                        'pulse-glow': {
+                            '0%, 100%': { opacity: 1, filter: 'drop-shadow(0 0 15px rgba(250, 204, 21, 0.4))' },
+                            '50%': { opacity: .8, filter: 'drop-shadow(0 0 25px rgba(250, 204, 21, 0.8))' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* زیادکردنی فۆنتە کوردییەکە */
+        @font-face {
+            font-family: 'NRT';
+            src: url('./NRT-Reg.ttf') format('truetype');
+        }
+
+        body {
+            background-color: #0B1021; 
+            overflow-x: hidden;
+            margin: 0;
+            padding: 0;
+            font-family: 'NRT', sans-serif; /* بەکارهێنانی فۆنتەکە بۆ هەموو پەیجەکە */
+        }
+
+        .pattern-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M30 0l2.5 12.5L45 15l-7.5 10 5 12.5L30 32.5 17.5 37.5l5-12.5L15 15l12.5-2.5L30 0zm0 60l-2.5-12.5L15 45l7.5-10-5-12.5L30 27.5l12.5-5-5 12.5L45 45l-12.5 2.5L30 60z' fill='%23ffffff' fill-opacity='0.03' fill-rule='evenodd'/%3E%3C/svg%3E");
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.05);
+        }
+        
+        .glass-nav {
+            background: rgba(11, 16, 33, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.6;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
+
+        .tilt-wrapper {
+            perspective: 1000px;
+            transform-style: preserve-3d;
+        }
+
+        .tilt-element {
+            transition: transform 0.1s ease-out;
+            transform-style: preserve-3d;
+        }
+        
+        .moon-layer {
+            transform: translateZ(50px);
+        }
+    </style>
+</head>
+<body class="text-white min-h-screen flex flex-col antialiased relative">
+
+    <div class="pattern-bg"></div>
+
+    <div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+        <div class="orb bg-emerald-600/40 w-[500px] h-[500px] top-[-10%] right-[-10%] animate-blob"></div>
+        <div class="orb bg-gold-600/30 w-[600px] h-[600px] top-[20%] left-[-10%] animate-blob animation-delay-2000"></div>
+        <div class="orb bg-blue-600/30 w-[400px] h-[400px] bottom-[-10%] right-[20%] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <nav class="glass-nav fixed w-full top-0 z-50 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex items-center gap-3 cursor-pointer group">
+                    <div class="w-10 h-10 rounded-lg bg-gradient-to-br from-gold-400 to-gold-600 flex items-center justify-center shadow-lg group-hover:shadow-gold-500/50 transition-all duration-300">
+                        <svg class="w-6 h-6 text-midnight" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l9-5-9-5-9 5 9 5z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 14v6m-3-2.818l-6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14v6"></path></svg>
+                    </div>
+                    <span class="font-bold text-xl tracking-wide bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-300">پەیجی کۆلێژ</span>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <main class="flex-grow flex items-center justify-center relative z-10 px-4 sm:px-6 pt-24 pb-12">
+        <div class="tilt-wrapper w-full max-w-4xl mx-auto">
+            <div id="glass-card" class="tilt-element glass-card rounded-[2.5rem] p-8 md:p-16 relative overflow-hidden group">
+                
+                <div class="absolute top-0 right-0 w-full h-full bg-gradient-to-bl from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"></div>
+
+                <div class="relative z-10 flex flex-col md:flex-row items-center justify-between gap-12">
+                    
+                    <div class="w-full md:w-3/5 text-center md:text-right space-y-6">
+                        <div class="inline-block">
+                            <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 px-4 py-1.5 rounded-full text-sm font-medium tracking-wide shadow-[0_0_10px_rgba(16,185,129,0.2)]">
+                                پەیامی پیرۆزبایی
+                            </span>
+                        </div>
+                        
+                        <h1 class="text-5xl md:text-7xl font-bold leading-tight">
+                            <span class="block text-white mb-2">جەژنی ڕەمەزان</span>
+                            <span class="bg-clip-text text-transparent bg-gradient-to-r from-gold-300 via-gold-400 to-amber-600 drop-shadow-sm">پیرۆز بێت</span>
+                        </h1>
+                        
+                        <p class="text-gray-200 text-lg md:text-xl font-light leading-relaxed max-w-lg">
+                            بەبۆنەی هاتنەوەی جەژنی ڕەمەزانی پیرۆزەوە، گەرمترین پیرۆزبایی ئاراستەی گشت دۆستان و ئازیزان دەکەین. هیوادارم ئەم جەژنە ببێتە مایەی خێر و خۆشی و ئارامی بۆ هەموو لایەک. خوای گەورە عیبادەت و ڕۆژووی هەمووانی قبوڵ کردبێت. جەژنتان پیرۆز و هەموو ڕۆژێکتان هەر جەژن بێت.
+                        </p>
+                        
+                        <div class="mt-6 border-r-4 border-gold-500 pr-4 text-right inline-block">
+                            <h3 class="text-xl font-bold text-gold-400">محمد گەردی</h3>
+                            <p class="text-gray-400 text-sm mt-1">بەڕێوبەری پەیجی کۆلێژ</p>
+                        </div>
+                    </div>
+
+                    <div class="w-full md:w-2/5 flex justify-center items-center relative h-64 md:h-96">
+                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                            <div class="w-48 h-48 md:w-64 md:h-64 rounded-full border border-gold-400/20 animate-[spin_20s_linear_infinite]"></div>
+                            <div class="absolute w-56 h-56 md:w-80 md:h-80 rounded-full border border-dashed border-emerald-400/20 animate-[spin_30s_linear_infinite_reverse]"></div>
+                        </div>
+
+                        <div class="moon-layer animate-float drop-shadow-[0_20px_40px_rgba(0,0,0,0.5)] z-10">
+                            <img src="ramadan.jpg" alt="Ramadan" class="w-48 h-48 md:w-72 md:h-72 object-cover rounded-2xl border-2 border-gold-500/30 shadow-[0_0_25px_rgba(250,204,21,0.2)]">
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="relative z-10 w-full py-6 text-center text-sm text-gray-400/80 glass-nav mt-auto border-t-0 border-white/5">
+        <p>© 2026 پەیجی کۆلێژ. هەموو مافێک پارێزراوە.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const card = document.getElementById('glass-card');
+            const wrapper = document.querySelector('.tilt-wrapper');
+            const moonLayer = document.querySelector('.moon-layer');
+
+            wrapper.addEventListener('mousemove', (e) => {
+                const rect = wrapper.getBoundingClientRect();
+                const x = e.clientX - rect.left; 
+                const y = e.clientY - rect.top;  
+                
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+                
+                const rotateX = ((y - centerY) / centerY) * -5;
+                const rotateY = ((x - centerX) / centerX) * 5;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+                
+                const moonMoveX = ((x - centerX) / centerX) * 20;
+                const moonMoveY = ((y - centerY) / centerY) * 20;
+                moonLayer.style.transform = `translateZ(50px) translate(${moonMoveX}px, ${moonMoveY}px)`;
+            });
+
+            wrapper.addEventListener('mouseleave', () => {
+                card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
+                card.style.transition = `transform 0.5s ease-out`;
+                
+                moonLayer.style.transform = `translateZ(50px) translate(0px, 0px)`;
+                moonLayer.style.transition = `transform 0.5s ease-out`;
+                
+                setTimeout(() => {
+                    card.style.transition = '';
+                    moonLayer.style.transition = '';
+                }, 500);
+            });
+        });
+    </script>
+</body>
+</html>
