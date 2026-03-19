@@ -54,7 +54,6 @@
     </script>
 
     <style>
-        /* زیادکردنی فۆنتە کوردییەکە */
         @font-face {
             font-family: 'NRT';
             src: url('./NRT-Reg.ttf') format('truetype');
@@ -65,7 +64,7 @@
             overflow-x: hidden;
             margin: 0;
             padding: 0;
-            font-family: 'NRT', sans-serif; /* بەکارهێنانی فۆنتەکە بۆ هەموو پەیجەکە */
+            font-family: 'NRT', sans-serif;
         }
 
         .pattern-bg {
@@ -190,12 +189,42 @@
         </div>
     </main>
 
+    <div id="admin-panel" class="hidden fixed bottom-6 left-6 z-[100] glass-card px-5 py-3 rounded-2xl border border-gold-500/40 flex items-center gap-4 shadow-2xl">
+        <div class="relative">
+            <div class="w-3 h-3 bg-emerald-500 rounded-full animate-ping absolute"></div>
+            <div class="w-3 h-3 bg-emerald-500 rounded-full relative"></div>
+        </div>
+        <div>
+            <p class="text-[10px] uppercase tracking-widest text-gray-400 font-sans">Total Visitors</p>
+            <p id="visit-count" class="text-xl font-bold text-gold-400 font-sans">000</p>
+        </div>
+    </div>
+
     <footer class="relative z-10 w-full py-6 text-center text-sm text-gray-400/80 glass-nav mt-auto border-t-0 border-white/5">
         <p>© 2026 پەیجی کۆلێژ. هەموو مافێک پارێزراوە.</p>
     </footer>
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            // 1. Counter Logic (Using a robust free counter)
+            const countDisplay = document.getElementById('visit-count');
+            // This API increments every time it's called
+            fetch('https://api.countapi.xyz/hit/college-eid-2026/visits')
+                .then(res => res.json())
+                .then(data => {
+                    countDisplay.innerText = data.value.toLocaleString();
+                })
+                .catch(() => {
+                    countDisplay.innerText = "Error";
+                });
+
+            // 2. Admin View Toggle
+            const urlParams = new URLSearchParams(window.location.search);
+            if (urlParams.get('admin') === 'true') {
+                document.getElementById('admin-panel').classList.remove('hidden');
+            }
+
+            // 3. Animation & Parallax Logic
             const card = document.getElementById('glass-card');
             const wrapper = document.querySelector('.tilt-wrapper');
             const moonLayer = document.querySelector('.moon-layer');
@@ -221,10 +250,8 @@
             wrapper.addEventListener('mouseleave', () => {
                 card.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg)`;
                 card.style.transition = `transform 0.5s ease-out`;
-                
                 moonLayer.style.transform = `translateZ(50px) translate(0px, 0px)`;
                 moonLayer.style.transition = `transform 0.5s ease-out`;
-                
                 setTimeout(() => {
                     card.style.transition = '';
                     moonLayer.style.transition = '';
